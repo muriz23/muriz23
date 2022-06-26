@@ -1,0 +1,16 @@
+#!/bin/bash
+nano /etc/locale.gen
+locale-gen
+echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+echo muriz > /etc/hostname
+nano /etc/hosts
+pacman -S grub networkmanager network-manager-applet
+grub-install -target=i386-pc /dev/dsk
+grub-mkconfig -o /boot/grub/grub.cfg
+grub-install /dev/sdc1
+grub-mkconfig -o /boot/grub/grub.cfg
+systemctl enable NetworkManager
+passwd
+useradd -m -g users -G wheel -s /bin/bash muriz
+EDITOR=nano visudo
+passwd muriz
