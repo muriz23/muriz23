@@ -7,7 +7,7 @@ nano /etc/hosts
 pacman -S grub networkmanager network-manager-applet
 grub-install -target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
-grub-install /dev/sdc1
+grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 systemctl enable NetworkManager
 passwd
