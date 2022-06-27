@@ -2,7 +2,3 @@
 timedatectl set-ntp true
 pacstrap -i /mnt base linux linux-firmware sudo nano
 genfstab -U -p /mnt >> /mnt/etc/fstab
-arch-chroot /mnt
-pacman -Sy
-pacman -S git
-git clone https://gitlab.com/muriz23/basic-install
