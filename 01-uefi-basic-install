@@ -1,0 +1,13 @@
+#!/bin/bash
+mkdir /mount
+cfdisk /dev/sda
+mkfs.fat -F32 /dev/sda1
+mkfs.ext4 /dev/sda2
+mount /dev/sda2 /mount
+mkdir /mount/boot
+mount /dev/sda1 /mount/boot
+timedatectl set-ntp true
+pacstrap -i /mount base linux linux-firmware sudo nano grub efibootmgr dosfstools os-prober mtools networkmanager network-manager-applet
+genfstab -U -p /mount >> /mount/etc/fstab
+cp -rf chroot-files/02-uefi-postinstall-chroot /mount/var/tmp/ && chmod +x /var/tmp/02-uefi-postinstall-chroot
+arch-chroot /mount ./var/tmp/02-uefi-postinstall-chroot
