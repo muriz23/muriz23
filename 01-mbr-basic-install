@@ -1,0 +1,10 @@
+#!/bin/bash
+mkdir /mount
+cfdisk /dev/sda
+mkfs.ext4 /dev/sda1
+mount /dev/sda1 /mount
+timedatectl set-ntp true
+pacstrap -i /mount base linux linux-firmware sudo nano grub networkmanager network-manager-applet
+genfstab -U -p /mount >> /mount/etc/fstab
+cp -rf chroot-files/02-mbr-postinstall-chroot /mount/var/tmp && chmod +x /var/tmp/02-mbr-postinstall-chroot
+arch-chroot /mount ./var/tmp/02-mbr-postinstall-chroot
