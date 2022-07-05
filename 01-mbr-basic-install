@@ -8,5 +8,5 @@ mount /dev/sda1 /mnt/boot
 timedatectl set-ntp true
 pacstrap -i /mnt base linux linux-firmware sudo nano
 genfstab -U -p /mnt >> /mnt/etc/fstab
-cp -rf nbr-postinstall-chroot /02-mbr-postinstall /mount/var/tmp && chmod +x /var/tmp/02-mbr-postinstall
+cp -rf mbr-postinstall-chroot /02-mbr-postinstall /mount/var/tmp && chmod +x /var/tmp/02-mbr-postinstall
 arch-chroot /mount ./var/tmp/02-mbr-postinstall
