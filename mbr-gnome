@@ -6,7 +6,7 @@ mount /dev/sda2 /mnt
 mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 timedatectl set-ntp true
-pacstrap -i /mnt base linux linux-firmware sudo nano
+pacstrap -i /mnt base linux linux-firmware sudo nano base-devel git
 genfstab -U -p /mnt >> /mnt/etc/fstab
 cp $0 /mnt/setup.sh
 arch-chroot /mnt ./setup.sh
