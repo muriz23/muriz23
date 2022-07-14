@@ -17,25 +17,6 @@ echo muriz > /etc/hostname
 echo "127.0.0.1 localhost" >> /etc/hosts
 echo "::1       localhost" >> /etc/hosts
 echo "127.0.1.1 arch.localdomain muriz" >> /etc/hosts
-pacman -S grub #!/bin/bash
-cfdisk /dev/sda
-mkfs.fat -F32 /dev/sda1
-mkfs.ext4 /dev/sda2
-mount /dev/sda2 /mnt
-mkdir /mnt/boot
-mount /dev/sda1 /mnt/boot
-timedatectl set-ntp true
-pacstrap -i /mnt base linux linux-firmware sudo nano
-genfstab -U -p /mnt >> /mnt/etc/fstab
-cp $0 /mnt/setup.sh
-arch-chroot /mnt ./setup.sh chroot
-echo "en_US.UTF-8" > /etc/locale.gen
-locale-gen
-echo "LANG=en_US.UTF-8" >> /etc/locale.conf
-echo muriz > /etc/hostname
-echo "127.0.0.1 localhost" >> /etc/hosts
-echo "::1       localhost" >> /etc/hosts
-echo "127.0.1.1 arch.localdomain muriz" >> /etc/hosts
 pacman -S grub efibootmgr networkmanager network-manager-applet
 mkdir /boot/efi
 mount /dev/sda1 /boot/efi
@@ -46,10 +27,3 @@ passwd
 useradd -m -g users -G wheel -s /bin/bash muriz
 EDITOR=nano visudo
 passwd muriz  
-grub-install /dev/sda
-grub-mkconfig -o /boot/grub/grub.cfg
-systemctl enable NetworkManager
-passwd
-useradd -m -g users -G wheel -s /bin/bash muriz
-EDITOR=nano visudo
-passwd muriz 
