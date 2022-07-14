@@ -28,3 +28,4 @@ passwd
 useradd -m -g users -G wheel -s /bin/bash muriz
 EDITOR=nano visudo
 passwd muriz
+systemctl start gdm.service
