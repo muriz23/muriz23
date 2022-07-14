@@ -1,4 +1,4 @@
- #!/bin/bash
+#!/bin/bash
 cfdisk /dev/sda
 mkfs.fat -F32 /dev/sda1
 mkfs.ext4 /dev/sda2
@@ -8,5 +8,20 @@ mount /dev/sda1 /mnt/boot
 timedatectl set-ntp true
 pacstrap -i /mnt base linux linux-firmware sudo nano
 genfstab -U -p /mnt >> /mnt/etc/fstab
-cp  muriz23 /mbr-basic-install /nbr-postinstall.txt /mnt 
-arch-chroot /mnt /nbr-postinstall.txt 
+cp $0 /mnt/setup.sh
+arch-chroot /mnt ./setup.sh
+echo "en_US.UTF-8" > /etc/locale.gen
+locale-gen
+echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+echo muriz > /etc/hostname
+echo "127.0.0.1 localhost" >> /etc/hosts
+echo "::1       localhost" >> /etc/hosts
+echo "127.0.1.1 arch.localdomain muriz" >> /etc/hosts
+pacman -S grub networkmanager network-manager-applet
+grub-install /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+systemctl enable NetworkManager
+passwd
+useradd -m -g users -G wheel -s /bin/bash muriz
+EDITOR=nano visudo
+passwd muriz
