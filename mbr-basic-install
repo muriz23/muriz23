@@ -8,7 +8,7 @@ mount /dev/sda1 /mnt/boot
 timedatectl set-ntp true
 pacstrap -i /mnt base linux linux-firmware sudo nano
 genfstab -U -p /mnt >> /mnt/etc/fstab
-if arch-chroot /mnt
+if  [ arch-chroot /mnt ]
   then
 echo "arch-chroot /mnt"
 fi 
