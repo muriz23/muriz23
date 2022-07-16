@@ -11,7 +11,8 @@ genfstab -U -p /mnt >> /mnt/etc/fstab
 if  [ arch-chroot /mnt ]
 then
 echo "arch-chroot /mnt"
-else "arch-chroot /mnt"
+else 
+"arch-chroot /mnt"
 fi 
 echo "en_US.UTF-8" > /etc/locale.gen
 locale-gen
