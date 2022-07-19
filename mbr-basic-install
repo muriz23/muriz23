@@ -8,7 +8,6 @@ mount /dev/sda1 /mnt/boot
 timedatectl set-ntp true
 pacstrap -i /mnt base linux linux-firmware sudo nano
 genfstab -U -p /mnt >> /mnt/etc/fstab
-cp /etc/mtab chroot
 arch-chroot /mnt/arch mkinitcpio -p linux
 echo "en_US.UTF-8" > /etc/locale.gen
 locale-gen
@@ -18,7 +17,7 @@ echo "127.0.0.1 localhost" >> /etc/hosts
 echo "::1       localhost" >> /etc/hosts
 echo "127.0.1.1 arch.localdomain muriz" >> /etc/hosts
 pacman -S grub networkmanager network-manager-applet
-grub-install /dev/sda
+grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 systemctl enable NetworkManager
 passwd
