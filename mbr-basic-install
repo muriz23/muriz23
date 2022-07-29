@@ -8,7 +8,7 @@ mount /dev/sda1 /mnt/boot
 timedatectl set-ntp true
 pacstrap -i /mnt base linux linux-firmware sudo nano
 genfstab -U -p /mnt >> /mnt/etc/fstab
-cp #0 arch-chroot /mnt/setup.sh
+cp #$0 arch-chroot /mnt/setup.sh
 arch-chroot /mnt ./setup.sh
 echo "en_US.UTF-8" > /etc/locale.gen
 locale-gen
