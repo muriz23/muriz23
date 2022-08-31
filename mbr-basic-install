@@ -11,7 +11,8 @@ cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 reflector -c "US" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 pacstrap -i /mnt base linux linux-firmware sudo nano
 genfstab -U -p /mnt >> /mnt/etc/fstab
-arch-chroot /mnt /bin/bash 
+cp arch-chroot /mnt /bin/bash
+arch-chroot /mnt /bin/bash
 echo "en_US.UTF-8" > /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
