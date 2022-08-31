@@ -19,6 +19,7 @@ echo "127.0.1.1 arch.localdomain muriz" >> /etc/hosts
 pacman -S grub networkmanager network-manager-applet
 grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
+grub-install /dev/sda
 systemctl enable NetworkManager
 passwd
 useradd -m -g users -G wheel -s /bin/bash muriz
