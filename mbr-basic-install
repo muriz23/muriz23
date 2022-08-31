@@ -1,4 +1,7 @@
  #!/bin/bash
+pacman -S reflector
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
+reflector -c "US" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 cfdisk /dev/sda
 mkfs.fat -F32 /dev/sda1
 mkfs.ext4 /dev/sda2
@@ -16,7 +19,7 @@ echo muriz > /etc/hostname
 echo "127.0.0.1 localhost" >> /etc/hosts
 echo "::1       localhost" >> /etc/hosts
 echo "127.0.1.1 arch.localdomain muriz" >> /etc/hosts
-pacman -S grub networkmanager network-manager-applet
+pacman -S grub networkmanager network-manager-applet 
 grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 grub-install /dev/sda
