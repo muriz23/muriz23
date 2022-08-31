@@ -1,14 +1,14 @@
  #!/bin/bash
-pacman -S reflector
-cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
-reflector -c "US" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 cfdisk /dev/sda
-mkfs.fat -F32 /dev/sda1
+mkfs.ext3 /dev/sda1
 mkfs.ext4 /dev/sda2
 mount /dev/sda2 /mnt
 mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 timedatectl set-ntp true
+pacman -S reflector
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
+reflector -c "US" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 pacstrap -i /mnt base linux linux-firmware sudo nano
 genfstab -U -p /mnt >> /mnt/etc/fstab
 arch-chroot /mnt ./setup.sh
@@ -22,7 +22,6 @@ echo "127.0.1.1 arch.localdomain muriz" >> /etc/hosts
 pacman -S grub networkmanager network-manager-applet 
 grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
-grub-install /dev/sda
 systemctl enable NetworkManager
 passwd
 useradd -m -g users -G wheel -s /bin/bash muriz
