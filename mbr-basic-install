@@ -11,8 +11,7 @@ cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 reflector -c "US" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 pacstrap -i /mnt base linux linux-firmware sudo nano
 genfstab -U -p /mnt >> /mnt/etc/fstab
-cp /mnt ./setup.sh
-arch-chroot /mnt ./setup.sh
+arch-chroot /mnt /bin/bash ./setup.sh
 echo "en_US.UTF-8" > /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
@@ -21,7 +20,8 @@ echo "127.0.0.1 localhost" >> /etc/hosts
 echo "::1       localhost" >> /etc/hosts
 echo "127.0.1.1 arch.localdomain muriz" >> /etc/hosts
 pacman -S grub networkmanager network-manager-applet 
-grub-install /dev/sda
+grub-install --target=i386-pc /dev/sda
+grub-install --root-directory=/mnt /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 systemctl enable NetworkManager
 passwd
