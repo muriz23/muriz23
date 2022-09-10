@@ -9,7 +9,7 @@ timedatectl set-ntp true
 pacman -S reflector
 pacstrap -i /mnt base linux linux-firmware sudo nano
 genfstab -U -p /mnt >> /mnt/etc/fstab
-cp  /mnt /dev/sda2
+cp  /mnt /bin/bash
 arch-chroot /mnt /bin/bash
 echo "en_US.UTF-8" > /etc/locale.gen
 locale-gen
